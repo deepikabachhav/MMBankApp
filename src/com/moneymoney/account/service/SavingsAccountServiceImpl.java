@@ -105,8 +105,8 @@ public class SavingsAccountServiceImpl implements SavingsAccountService {
 		}
 
 	@Override
-	public List<SavingsAccount> sortByAscendingOrder(SavingsAccount account) throws ClassNotFoundException, SQLException {
-		return savingsAccountDAO.sortByAscendingOrder(account);
+	public List<SavingsAccount>  sortByAscendingOrder(List<SavingsAccount> savingsAccounts) throws ClassNotFoundException, SQLException {
+		return savingsAccountDAO.sortByAscendingOrder(savingsAccounts);
 	}
 	
 }

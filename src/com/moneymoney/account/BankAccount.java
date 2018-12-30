@@ -1,23 +1,23 @@
 package com.moneymoney.account;
 
 public class BankAccount {
-	private final int accountNumber;
+	private  int accountNumber;
 	private double accountBalance;
 	private String accountHolderName;
-	private static int accountId;
+	//private static int accountId;
 
-	static {
+	/*static {
 		accountId = 100;
 	}
-
+*/
 	public BankAccount(String accountHolderName, double accountBalance) {
-		accountNumber = ++accountId;
+		//accountNumber = ++accountId;
 		this.accountHolderName = accountHolderName;
 		this.accountBalance = accountBalance;
 	}
 
 	public BankAccount(String accountHolderName) {
-		accountNumber = ++accountId;
+		//accountNumber = ++accountId;
 		this.accountHolderName = accountHolderName;
 	}
 

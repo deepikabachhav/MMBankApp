@@ -68,7 +68,7 @@ public class AccountCUI {
 			showAllAccounts();
 			break;
 		case 10:
-			sortMenu();
+			//sortMenu();
 			break;
 		case 11:
 			try {
@@ -230,6 +230,7 @@ public class AccountCUI {
 		int accountNumber = scanner.nextInt();
 		try {
 			SavingsAccount closeAccount = savingsAccountService.deleteAccount(accountNumber);
+			DBUtil.commit();
 		} catch (ClassNotFoundException | AccountNotFoundException
 				| SQLException e) {
 			e.printStackTrace();
@@ -308,7 +309,7 @@ public class AccountCUI {
 		}
 	}
 
-	private static void sortMenu() {
+	/*private static void sortMenu() {
 		int sortBy=0;
 		System.out.println("+++++Ways of Sorting+++++++");
 		System.out.println("1. Account Number");
@@ -324,9 +325,7 @@ public class AccountCUI {
 		}
 		switch (sortBy) {
 		case 1:
-			List<SavingsAccount> account= null;
-				 account=savingsAccountService.getAllSavingsAccount();
-			List<SavingsAccount> savingsAccounts= savingsAccountService.sortByAscendingOrder(account);
+			List<SavingsAccount> savingsAccount= savingsAccountService.sortByAscendingOrder(savingsAccounts);
 			break;
 		case 2:
 			
@@ -337,7 +336,7 @@ public class AccountCUI {
 		}
 	}
 	
-
+*/
 	private static void showAllAccounts() {
 		List<SavingsAccount> savingsAccounts;
 		try {

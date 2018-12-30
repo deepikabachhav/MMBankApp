@@ -150,19 +150,23 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 		PreparedStatement preparedStatement = connection.prepareStatement
 				("DELETE FROM account where account_id=?");
 		preparedStatement.setInt(1, accountNumber);
-		boolean resultSet = preparedStatement.execute();
+		preparedStatement.executeUpdate();
 		SavingsAccount savingsAccount =null;
 			return savingsAccount;
 		}
 	//throw new AccountNotFoundException("Account with account number "+accountNumber+" does not exist.");
 
 	@Override
-	public List<SavingsAccount> sortByAscendingOrder(List<SavingsAccount> account) throws ClassNotFoundException, SQLException {
-		List<SavingsAccount> savingsAccounts = new ArrayList<>();
+	public List<SavingsAccount> sortByAscendingOrder( List<SavingsAccount> savingsAccounts,int choice) {
+		List<SavingsAccount> accounts = new ArrayList<>();
 		Connection connection = DBUtil.getConnection();
-		PreparedStatement preparedStatement = connection.prepareStatement
-				("SELECT * FROM account ORDER BY ?,?,?");
-		preparedStatement.setInt(1, ((SavingsAccount) account).getBankAccount().getAccountNumber());
+		String query="SELECT * FROM account ORDER BY ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		switch(choice){
+		case 1:
+			preparedStatement.setInt(1,);
+			break;
+		}
 		preparedStatement.setString(2, ((SavingsAccount) account).getBankAccount().getAccountHolderName());
 		preparedStatement.setDouble(3, ((SavingsAccount) account).getBankAccount().getAccountBalance());
 		ResultSet resultSet=preparedStatement.executeQuery();
@@ -182,5 +186,12 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 	public void commit() throws SQLException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<SavingsAccount> sortByAscendingOrder(
+			List<SavingsAccount> savingsAccounts) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -68,7 +68,7 @@ public class AccountCUI {
 			showAllAccounts();
 			break;
 		case 10:
-			//sortMenu();
+			sortMenu();
 			break;
 		case 11:
 			try {
@@ -309,15 +309,33 @@ public class AccountCUI {
 		}
 	}
 
-	/*private static void sortMenu() {
+	private static void sortMenu() {
 		int sortBy=0;
+		do{
 		System.out.println("+++++Ways of Sorting+++++++");
 		System.out.println("1. Account Number");
 		System.out.println("2. Account Holder Name");
 		System.out.println("3. Account Balance");
+		System.out.println("4. Exit from sorting");
 		int choice = scanner.nextInt();
-		if(choice <=3){
-			System.out.println("Sort Account Number By: ");
+		if(choice !=4){
+			System.out.println("Sort By: ");
+			System.out.println("1.Ascending order: ");
+			System.out.println("2.Descending order: ");
+			System.out.println("Make your choice: ");
+			sortBy = scanner.nextInt();
+		try {
+			List<SavingsAccount>savingsAccount = savingsAccountService.sort(choice);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}catch(Exception e1){
+			e1.printStackTrace();
+		}
+		}
+			else
+				break;
+		}while(true);
+		/*	System.out.println("Sort Account Number By: ");
 			System.out.println("1.Ascending order: ");
 			System.out.println("2.Descending order: ");
 			System.out.println("Make your choice: ");
@@ -333,10 +351,10 @@ public class AccountCUI {
 		default:
 			System.err.println("Invalid choice!");
 			break;
-		}
+		}*/
 	}
 	
-*/
+
 	private static void showAllAccounts() {
 		List<SavingsAccount> savingsAccounts;
 		try {

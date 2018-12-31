@@ -22,9 +22,7 @@ public interface SavingsAccountService {
 	List<SavingsAccount> searchAccountByAccountBalance(double minimumBalance,
 			double maximumBalance) throws ClassNotFoundException, SQLException;
 	SavingsAccount updateAccount(SavingsAccount account) throws ClassNotFoundException, SQLException,AccountNotFoundException;
-	
-	//List<SavingsAccount> sortByAscendingOrder(SavingsAccount account) throws ClassNotFoundException, SQLException;
-	List<SavingsAccount> sortByAscendingOrder(List<SavingsAccount> savingsAccounts) throws ClassNotFoundException, SQLException;
+	List<SavingsAccount> sort(int choice) throws ClassNotFoundException, SQLException;
 	
 }
 

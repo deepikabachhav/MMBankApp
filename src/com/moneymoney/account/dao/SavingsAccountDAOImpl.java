@@ -157,28 +157,42 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 	//throw new AccountNotFoundException("Account with account number "+accountNumber+" does not exist.");
 
 	@Override
-	public List<SavingsAccount> sortByAscendingOrder( List<SavingsAccount> savingsAccounts,int choice) {
-		List<SavingsAccount> accounts = new ArrayList<>();
-		Connection connection = DBUtil.getConnection();
-		String query="SELECT * FROM account ORDER BY ?";
-		PreparedStatement preparedStatement = connection.prepareStatement(query);
+	public List<SavingsAccount> sort(int choice) throws ClassNotFoundException, SQLException {
+		List<SavingsAccount> savingsAccounts = new ArrayList<>();
+		String query="SELECT * FROM account";
 		switch(choice){
 		case 1:
-			preparedStatement.setInt(1,);
+			query="SELECT * FROM account ORDER BY account_id";
+			break;
+		case 2:
+			query="SELECT * FROM account ORDER BY account_id DESC";
+			break;
+		case 3:
+			query="SELECT * FROM account ORDER BY account_hn";
+			break;
+		case 4:
+			query="SELECT * FROM account ORDER BY account_hn DESC";
+			break;
+		case 5:
+			query="SELECT * FROM account ORDER BY account_bal";
+			break;
+		case 6:
+			query="SELECT * FROM account ORDER BY account_bal DESC";
 			break;
 		}
-		preparedStatement.setString(2, ((SavingsAccount) account).getBankAccount().getAccountHolderName());
-		preparedStatement.setDouble(3, ((SavingsAccount) account).getBankAccount().getAccountBalance());
-		ResultSet resultSet=preparedStatement.executeQuery();
-		if(resultSet.next()) {
-			int accountNumber = resultSet.getInt("account_id");
-			String accountHolderName=resultSet.getString("account_hn");
+		Connection connection = DBUtil.getConnection();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(query);
+		while (resultSet.next()) {// Check if row(s) is present in table
+			int accountNumber = resultSet.getInt(1);
+			String accountHolderName = resultSet.getString("account_hn");
 			double accountBalance = resultSet.getDouble(3);
 			boolean salary = resultSet.getBoolean("salary");
-			SavingsAccount savingAccount = new SavingsAccount(accountNumber, accountHolderName, accountBalance,
+			SavingsAccount savingsAccount = new SavingsAccount(accountNumber, accountHolderName, accountBalance,
 					salary);
-			savingsAccounts.add(savingAccount);
+			savingsAccounts.add(savingsAccount);
 		}
+		//DBUtil.commit();
 		return savingsAccounts;
 	}
 
@@ -188,10 +202,4 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 		
 	}
 
-	@Override
-	public List<SavingsAccount> sortByAscendingOrder(
-			List<SavingsAccount> savingsAccounts) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

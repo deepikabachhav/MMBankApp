@@ -101,12 +101,13 @@ public class SavingsAccountServiceImpl implements SavingsAccountService {
 	@Override
 	public SavingsAccount updateAccount( SavingsAccount account) throws ClassNotFoundException, SQLException,AccountNotFoundException {
 			return savingsAccountDAO.updateAccount( account);
-
-		}
+	}
 
 	@Override
-	public List<SavingsAccount>  sortByAscendingOrder(List<SavingsAccount> savingsAccounts) throws ClassNotFoundException, SQLException {
-		return savingsAccountDAO.sortByAscendingOrder(savingsAccounts);
+	public List<SavingsAccount> sort(int choice) throws ClassNotFoundException,SQLException {
+		return savingsAccountDAO.sort(choice);
 	}
+
+	
 	
 }

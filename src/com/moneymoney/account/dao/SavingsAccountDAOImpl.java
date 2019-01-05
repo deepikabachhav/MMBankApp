@@ -157,30 +157,31 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 	//throw new AccountNotFoundException("Account with account number "+accountNumber+" does not exist.");
 
 	@Override
-	public List<SavingsAccount> sort(int choice) throws ClassNotFoundException, SQLException {
-		List<SavingsAccount> savingsAccounts = new ArrayList<>();
-		String query="SELECT * FROM account";
+	public List<SavingsAccount> sort(int choice,int sortBy) throws ClassNotFoundException, SQLException {
+		Connection connection = DBUtil.getConnection();
+		SavingsAccount savingsAccount= null;
+		String query="";
 		switch(choice){
 		case 1:
-			query="SELECT * FROM account ORDER BY account_id";
+			if(sortBy==1)
+				query="SELECT * FROM account ORDER BY account_id";
+			else
+				query="SELECT * FROM account ORDER BY account_id DESC";
 			break;
 		case 2:
-			query="SELECT * FROM account ORDER BY account_id DESC";
+			if(sortBy==1)
+				query="SELECT * FROM account ORDER BY account_hn";
+			else
+				query="SELECT * FROM account ORDER BY account_hn DESC";
 			break;
 		case 3:
-			query="SELECT * FROM account ORDER BY account_hn";
-			break;
-		case 4:
-			query="SELECT * FROM account ORDER BY account_hn DESC";
-			break;
-		case 5:
-			query="SELECT * FROM account ORDER BY account_bal";
-			break;
-		case 6:
-			query="SELECT * FROM account ORDER BY account_bal DESC";
+			if(sortBy==1)
+				query="SELECT * FROM account ORDER BY account_bal";
+			else
+				query="SELECT * FROM account ORDER BY account_bal DESC";
 			break;
 		}
-		Connection connection = DBUtil.getConnection();
+		List<SavingsAccount> savingsAccounts=new ArrayList<>();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(query);
 		while (resultSet.next()) {// Check if row(s) is present in table
@@ -188,11 +189,10 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 			String accountHolderName = resultSet.getString("account_hn");
 			double accountBalance = resultSet.getDouble(3);
 			boolean salary = resultSet.getBoolean("salary");
-			SavingsAccount savingsAccount = new SavingsAccount(accountNumber, accountHolderName, accountBalance,
-					salary);
+			savingsAccount= new SavingsAccount(accountNumber, accountHolderName, accountBalance,salary);
 			savingsAccounts.add(savingsAccount);
 		}
-		//DBUtil.commit();
+		statement.close();
 		return savingsAccounts;
 	}
 

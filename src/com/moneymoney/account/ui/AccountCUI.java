@@ -231,8 +231,7 @@ public class AccountCUI {
 		try {
 			SavingsAccount closeAccount = savingsAccountService.deleteAccount(accountNumber);
 			DBUtil.commit();
-		} catch (ClassNotFoundException | AccountNotFoundException
-				| SQLException e) {
+		} catch (ClassNotFoundException | AccountNotFoundException| SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -324,34 +323,45 @@ public class AccountCUI {
 			System.out.println("2.Descending order: ");
 			System.out.println("Make your choice: ");
 			sortBy = scanner.nextInt();
-		try {
-			List<SavingsAccount>savingsAccount = savingsAccountService.sort(choice);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}catch(Exception e1){
-			e1.printStackTrace();
-		}
+			switch(choice){
+			case 1:
+				
+				try {
+					List<SavingsAccount> sortByAccountNumber = savingsAccountService.sort(choice,sortBy);
+					System.out.println(sortByAccountNumber);
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}catch(Exception e1){
+					e1.printStackTrace();
+				}
+				break;
+			case 2:
+		
+				try {
+					List<SavingsAccount> sortByAccountHolderName = savingsAccountService.sort(choice,sortBy);
+					System.out.println(sortByAccountHolderName);
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}catch(Exception e1){
+					e1.printStackTrace();
+				}
+				break;
+			case 3:
+
+				try {
+					List<SavingsAccount> sortByAccountBalance = savingsAccountService.sort(choice,sortBy);
+					System.out.println(sortByAccountBalance);
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}catch(Exception e1){
+					e1.printStackTrace();
+				}
+				break;
+			}
 		}
 			else
 				break;
 		}while(true);
-		/*	System.out.println("Sort Account Number By: ");
-			System.out.println("1.Ascending order: ");
-			System.out.println("2.Descending order: ");
-			System.out.println("Make your choice: ");
-			sortBy = scanner.nextInt();
-		}
-		switch (sortBy) {
-		case 1:
-			List<SavingsAccount> savingsAccount= savingsAccountService.sortByAscendingOrder(savingsAccounts);
-			break;
-		case 2:
-			
-			break;
-		default:
-			System.err.println("Invalid choice!");
-			break;
-		}*/
 	}
 	
 

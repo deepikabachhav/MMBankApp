@@ -18,6 +18,5 @@ public interface SavingsAccountDAO {
 	SavingsAccount searchAccountByAccountHoldername(String accountHolderName) throws AccountNotFoundException, ClassNotFoundException, SQLException;
 	List<SavingsAccount> searchAccountByAccountBalance(double minimumBalance,double maximumBalance) throws ClassNotFoundException, SQLException;
 	SavingsAccount updateAccount(SavingsAccount account)throws ClassNotFoundException, SQLException,AccountNotFoundException;
-	//List<SavingsAccount> sort(int choice) throws ClassNotFoundException, SQLException;
-	List<SavingsAccount> sort(int choice) throws ClassNotFoundException, SQLException;
+	List<SavingsAccount> sort(int choice, int sortBy)throws ClassNotFoundException, SQLException;
 }
